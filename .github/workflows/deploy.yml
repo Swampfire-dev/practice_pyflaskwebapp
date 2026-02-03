@@ -3,25 +3,26 @@ name: flask web application setup
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout-code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy via ssh 
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
+          port: 22
           username: root
           key: ${{ secrets.SSH_KEY }}
-          script: | 
+          script: |
+            set -e
             cd /home/root/Dproject2/myApp
-            git pull 
+            git pull origin main
             docker compose up -d --build
 
-            
