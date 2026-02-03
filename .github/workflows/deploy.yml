@@ -13,7 +13,7 @@ jobs:
       - name: checkout-code
         uses: actions/checkout@v4
 
-      - name: Deploy to centos via ssh 
+      - name: Deploy via ssh 
         uses: appleboy/ssh-action@v1.0.3
         with:
           hosts: ${{ secrets.SSH_HOST }}
