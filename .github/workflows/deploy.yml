@@ -1,0 +1,27 @@
+name: flask web application setup
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout-code
+        uses: actions/checkout@v4
+
+      - name: Deploy to centos via ssh 
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          hosts: ${{ secrets.SSH_HOST }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          script: | 
+            cd /home/root/Dproject2/myApp
+            git pull 
+            docker compose up -d --build
+
+            
